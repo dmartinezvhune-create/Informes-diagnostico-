@@ -1,0 +1,348 @@
+<title>Programa Edu Morán · Informe ejecutivo</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Layout: portada oscura de marca, columna de lectura de 760px, secciones separadas por filetes finos, gráficos en barras CSS */
+  :root{
+    --bg:#060606; --card:#101010; --soft:#0c0c0c; --line:#2a2722; --ivory:#EDE7D9;
+    --gold:#C9A84C; --gold-soft:#DCC178; --gold-dim:#8E763A;
+    --ink:#EDE7D9; --ink-dim:#B4AC98; --ink-faint:#8A8372;
+    --teal:#5AB48C; --red:#D07A5C; --amber:#D9A441;
+    --f-display:'Cormorant Garamond',Georgia,serif; --f-brand:'Cinzel',Georgia,serif; --f-body:'DM Sans',system-ui,sans-serif;
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15.5px;line-height:1.62;-webkit-font-smoothing:antialiased;
+    padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));}
+  h1,h2,h3,h4{font-family:var(--f-display);font-weight:600;line-height:1.15;color:var(--ink);text-wrap:balance}
+  .wrap{max-width:760px;margin:0 auto}
+  .cover{padding-block:48px 40px;border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:space-between}
+  .brand .mark{display:flex;align-items:center;gap:12px}
+  .brand svg{width:36px;height:36px;flex:none}
+  .brand b{font-family:var(--f-brand);letter-spacing:.05em;font-size:1.05rem;color:var(--ivory);display:block;font-weight:700}
+  .slogan{display:block;font-style:normal;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-dim);margin-top:2px}
+  .brand b span{color:var(--gold)}
+  .meta{font-size:.74rem;color:var(--ink-faint);text-align:right;line-height:1.6}
+  .eyebrow{font-family:var(--f-brand);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-soft);margin:56px 0 14px}
+  h1{font-size:clamp(2rem,6vw,3rem);margin-bottom:18px}
+  h1 em{font-style:normal;color:var(--gold)}
+  .thesis{font-family:var(--f-display);font-style:italic;font-size:1.2rem;color:var(--ink-dim);max-width:60ch;line-height:1.5}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:40px}
+  .kpis div{background:var(--card);padding:18px 16px;min-width:0}
+  .kpis .n{display:block;font-family:var(--f-display);font-size:1.8rem;color:var(--gold);font-variant-numeric:tabular-nums}
+  .kpis .l{font-size:.72rem;color:var(--ink-faint);line-height:1.4}
+  section{padding-block:56px;border-bottom:1px solid var(--line)}
+  section:last-of-type{border-bottom:0}
+  h2{font-size:1.85rem;margin-bottom:10px}
+  h2 em{font-style:normal;color:var(--gold)}
+  .dek{color:var(--ink-dim);max-width:62ch;margin-bottom:24px}
+  h3{font-size:1.25rem;color:var(--gold-soft);margin:30px 0 12px}
+  p{color:var(--ink-dim)}
+  p + p{margin-top:12px}
+  strong{color:var(--ink);font-weight:600}
+  .tablewrap{overflow-x:auto;margin:14px 0 6px}
+  table{width:100%;border-collapse:collapse;font-size:.88rem;min-width:420px}
+  th{text-align:left;font-family:var(--f-brand);font-weight:600;font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-soft);padding:9px 6px;border-bottom:1px solid var(--gold-dim)}
+  td{padding:10px 6px;border-bottom:1px solid var(--line);color:var(--ink-dim);vertical-align:top}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  tr.total td{color:var(--gold-soft);font-weight:600;border-top:1px solid var(--gold-dim);border-bottom:0}
+  .note{border-left:2px solid var(--gold);padding:2px 0 2px 18px;margin:22px 0;font-size:.92rem;color:var(--ink-dim)}
+  .note.teal{border-left-color:var(--teal)} .note.red{border-left-color:var(--red)}
+  .exec{background:var(--card);border:1px solid var(--line)}
+  .exec div{display:flex;gap:16px;padding:18px 22px;border-bottom:1px solid var(--line)}
+  .exec div:last-child{border-bottom:0}
+  .exec i{font-family:var(--f-display);font-size:1.4rem;color:var(--gold);width:22px;flex:none}
+  .exec p{min-width:0}
+  /* verdict */
+  .verdict{background:var(--card);border:1px solid var(--gold-dim);padding:26px 26px;margin-bottom:26px}
+  .verdict .tag{font-family:var(--f-brand);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-soft)}
+  .verdict h3{margin:8px 0 10px;font-size:1.6rem;color:var(--ink)}
+  /* bars */
+  .bars{display:grid;gap:12px;margin:18px 0}
+  .brow{display:grid;grid-template-columns:150px 1fr 74px;gap:12px;align-items:center}
+  .brow .lab{font-size:.84rem;color:var(--ink-dim)}
+  .track{height:24px;background:var(--soft);border:1px solid var(--line);position:relative;display:flex}
+  .seg{height:100%}
+  .seg.a{background:var(--gold)}
+  .seg.b{background:repeating-linear-gradient(135deg,var(--gold-dim) 0 4px,transparent 4px 8px);border-left:1px solid var(--gold-dim)}
+  .seg.red{background:var(--red)}
+  .brow .val{font-family:var(--f-display);font-size:1.05rem;color:var(--gold-soft);text-align:right;font-variant-numeric:tabular-nums}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;font-size:.78rem;color:var(--ink-faint);margin-top:6px}
+  .legend span::before{content:"";display:inline-block;width:12px;height:12px;margin-right:6px;vertical-align:-1px;background:var(--gold)}
+  .legend span.h::before{background:repeating-linear-gradient(135deg,var(--gold-dim) 0 3px,transparent 3px 6px);border:1px solid var(--gold-dim)}
+  /* scorecard */
+  .score{display:grid;gap:10px}
+  .sc{display:grid;grid-template-columns:150px 120px 1fr;gap:14px;background:var(--card);border:1px solid var(--line);padding:14px 16px;align-items:start}
+  .sc b{font-family:var(--f-display);font-size:1.1rem;font-weight:600;color:var(--ink)}
+  .pill{display:inline-block;font-size:.72rem;font-weight:600;padding:3px 10px;border:1px solid;letter-spacing:.02em;white-space:nowrap}
+  .pill.ok{color:var(--teal);border-color:var(--teal)}
+  .pill.mid{color:var(--amber);border-color:var(--amber)}
+  .pill.risk{color:var(--red);border-color:var(--red)}
+  .sc p{font-size:.88rem;min-width:0}
+  .rec{background:var(--card);border:1px solid var(--line);padding:22px 24px;margin-bottom:14px}
+  .rec h4{font-size:1.25rem;color:var(--gold-soft);margin-bottom:8px}
+  .rec p{font-size:.92rem}
+  .rec .why{margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-size:.82rem;color:var(--ink-faint)}
+  .closing{padding-block:56px;text-align:center;border-top:1px solid var(--line)}
+  .closing svg{width:32px;height:32px;margin:0 auto 16px;display:block}
+  .closing h2{font-size:1.6rem;max-width:560px;margin:0 auto 12px}
+  .closing p{font-size:.82rem;color:var(--ink-faint)}
+  .src{font-size:.78rem;color:var(--ink-faint);margin-top:14px}
+  @media (max-width:640px){
+    .kpis{grid-template-columns:1fr 1fr}
+    .brow{grid-template-columns:1fr 64px;grid-template-areas:"lab lab" "track val"}
+    .brow .lab{grid-area:lab}.brow .track{grid-area:track}.brow .val{grid-area:val}
+    .sc{grid-template-columns:1fr}
+    .meta{text-align:left}
+    .exec div{padding:16px}
+  }
+</style>
+
+<style>.st{display:inline-block;font-size:.7rem;font-weight:600;padding:2px 8px;border:1px solid;white-space:nowrap}
+.st.c{color:var(--teal);border-color:var(--teal)}.st.n{color:var(--red);border-color:var(--red)}.st.s{color:var(--amber);border-color:var(--amber)}.st.x{color:var(--ink-faint);border-color:var(--line)}
+table.log{min-width:620px}table.log td:first-child{white-space:nowrap}</style>
+<div class="wrap">
+<header class="cover">
+  <div class="brand"><div class="mark"><svg viewBox="0 0 100 100" fill="none" aria-hidden="true"><polygon points="50,4 90,26 90,74 50,96 10,74 10,26" stroke="#C9A84C" stroke-width="3" fill="#060606"/><path d="M33 50 L45 62 L69 36" stroke="#C9A84C" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>CLOSER<span> SEARCH</span></b><em class="slogan">Selección de talento de cierre</em></div></div>
+  <div class="meta">Preparado en exclusiva para <strong>Edu Morán</strong><br>Periodo: 31 ago – 20 oct 2026</div></div>
+  <div class="eyebrow">Informe ejecutivo de situación</div>
+  <h1>Programa Edu Morán: <em>análisis completo</em> de siete semanas</h1>
+  <p class="thesis">Qué ha pasado, por qué, cuánto dinero está en juego y qué hacer en los próximos 30 días. Revisado por un comité de cuatro expertos.</p>
+  <div class="kpis"><div><span class="n">6.465€</span><span class="l">Cobrados con comprobante</span></div><div><span class="n">9.832€</span><span class="l">Comprometidos como mínimo</span></div><div><span class="n">7</span><span class="l">Cierres con pago confirmado</span></div><div><span class="n">57%</span><span class="l">De las citas se celebran (34 de 60)</span></div></div>
+</header>
+<style>
+.hero2{display:grid;grid-template-columns:230px 1fr;gap:28px;align-items:center;margin:8px 0 24px}
+.donut text{font-family:var(--f-display);fill:var(--ink)}
+.lg{display:grid;gap:10px}.lg div{display:flex;align-items:baseline;gap:10px;font-size:.92rem;color:var(--ink-dim)}
+.lg b{font-family:var(--f-display);font-size:1.9rem;color:var(--ink);min-width:48px;font-weight:600}
+.lg i{width:12px;height:12px;display:inline-block;flex:none;align-self:center}
+.cT{background:var(--teal)}.cR{background:var(--red)}.cA{background:var(--amber)}.cG{background:var(--ivory)}
+.bul{display:grid;gap:14px;margin:18px 0 6px}
+.bul .r{display:grid;grid-template-columns:110px 1fr 56px;gap:12px;align-items:center;font-size:.86rem;color:var(--ink-dim)}
+.bul .tr{position:relative;height:26px;background:var(--soft);border:1px solid var(--line)}
+.bul .f{height:100%}
+.bul .tg{position:absolute;top:-5px;bottom:-5px;width:2px;background:var(--ivory)}
+.bul .tgl{position:absolute;top:-22px;left:0;transform:translateX(-50%);font-size:.68rem;color:var(--ink-faint);white-space:nowrap}
+.bul .v{font-family:var(--f-display);font-size:1.25rem;color:var(--ink);text-align:right}
+.pair{display:grid;gap:22px;margin:18px 0}
+.pair h4{font-family:var(--f-body);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:8px;font-weight:600}
+.pr{display:grid;grid-template-columns:78px 1fr 90px;gap:10px;align-items:center;margin-bottom:6px;font-size:.84rem;color:var(--ink-dim)}
+.pr .t{height:20px;background:var(--soft);border:1px solid var(--line)}.pr .t div{height:100%}
+.pr .v{text-align:right;font-family:var(--f-display);font-size:1.1rem;color:var(--ink)}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:14px 0}
+.cal .h{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);text-align:center;padding-bottom:2px}
+.cal .c{min-height:64px;background:var(--card);border:1px solid var(--line);padding:6px 6px 4px;display:flex;flex-direction:column;justify-content:space-between}
+.cal .c.we{background:var(--soft)}.cal .c.off{opacity:.28}
+.cal .c.hot{border-color:var(--red)}
+.cal .d{font-size:.74rem;color:var(--ink-faint)}
+.cal .dots{display:flex;flex-wrap:wrap;gap:3px}
+.cal .dots i{width:10px;height:10px;border-radius:50%;display:block}
+.keyr{display:flex;flex-wrap:wrap;gap:16px;font-size:.78rem;color:var(--ink-faint)}
+.keyr i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px}
+.big{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:18px 0}
+.big div{background:var(--card);padding:20px 16px}.big .n{display:block;font-family:var(--f-display);font-size:2.2rem;color:var(--gold);line-height:1.1}.big .l{font-size:.78rem;color:var(--ink-faint);line-height:1.4}
+.trend{display:grid;gap:8px}
+.tw{display:grid;grid-template-columns:1.2fr 1fr 1fr 110px;gap:10px;background:var(--card);border:1px solid var(--line);padding:12px 14px;align-items:center;font-size:.84rem}
+.tw b{font-family:var(--f-display);font-size:1.05rem;color:var(--ink)}
+.tw.hd{background:none;border:0;border-bottom:1px solid var(--gold-dim);padding:4px 14px;font-family:var(--f-brand);font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-soft)}
+.chart svg{width:100%;height:auto;display:block}
+.chart text{font-family:var(--f-body);fill:var(--ink-dim);font-size:11px}
+.cost{background:var(--card);border:1px solid var(--gold-dim);padding:26px;margin:18px 0}
+.cost .row{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:14px}
+.cost .row div{border-top:1px solid var(--line);padding-top:10px}
+.cost .n{display:block;font-family:var(--f-display);font-size:1.9rem;color:var(--gold)}
+.cost .l{font-size:.78rem;color:var(--ink-faint)}
+@media (max-width:640px){.hero2{grid-template-columns:1fr}.pr{grid-template-columns:62px 1fr 76px}.bul .r{grid-template-columns:80px 1fr 48px}.tw{grid-template-columns:1fr 1fr}.tw.hd{display:none}.big,.cost .row{grid-template-columns:1fr}.cal .c{min-height:52px;padding:4px}}
+</style>
+<style>
+.exp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}
+.exp .e{background:var(--card);border:1px solid var(--line);padding:18px 18px 16px}
+.exp .e h4{font-family:var(--f-brand);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:6px}
+.exp .e b{display:block;font-family:var(--f-display);font-size:1.2rem;color:var(--ink);margin-bottom:6px;line-height:1.25;font-weight:600}
+.exp .e p{font-size:.84rem}
+.tl{display:grid;gap:0;margin:18px 0;border-left:1px solid var(--gold-dim)}
+.tl .s{padding:2px 0 22px 22px;position:relative}
+.tl .s::before{content:"";position:absolute;left:-5px;top:8px;width:9px;height:9px;background:var(--gold)}
+.tl .s h4{font-size:1.15rem;color:var(--gold-soft);margin-bottom:4px}
+.tl .s li{font-size:.9rem;color:var(--ink-dim);margin-left:18px}
+.stack{display:flex;height:34px;border:1px solid var(--line);margin:14px 0 8px}
+.stack div{display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;color:#060606}
+.risk{display:grid;grid-template-columns:34px 1fr 90px;gap:12px;background:var(--card);border:1px solid var(--line);padding:12px 14px;margin-bottom:8px;align-items:start;font-size:.88rem}
+.risk i{font-family:var(--f-display);font-size:1.5rem;color:var(--gold);font-style:normal;line-height:1}
+.risk p{font-size:.86rem}
+@media (max-width:640px){.exp{grid-template-columns:1fr}.risk{grid-template-columns:28px 1fr}.risk .pill{grid-column:2;justify-self:start}}
+</style>
+<section>
+  <h2>Veredicto <em>ejecutivo</em></h2>
+  <div class="verdict"><span class="tag">Veredicto</span><h3>Viable y rentable. Tiene una fuga grave que se puede cerrar: la cita que no llega a celebrarse.</h3>
+  <p>En siete semanas el programa ha cobrado 6.465€ y tiene 9.832€ comprometidos como mínimo. La conversación de venta funciona y está cerca de tu referencia del 35%. Lo que ha roto el resultado de octubre es que solo 1 de cada 3 citas llega a la videollamada. Recuperar la asistencia de septiembre valdría entre 2.000€ y 3.500€ más cada 21 citas, sin tocar el guion.</p></div>
+  <div class="score">
+   <div class="sc"><b>Producto y oferta</b><span><span class="pill ok">Sólido</span></span><p>7 cierres con pago confirmado. Convence a quien lo escucha.</p></div>
+   <div class="sc"><b>Conversación de venta</b><span><span class="pill ok">Funciona</span></span><p>Cierre verificado del 19% de las llamadas y techo del 33%, cerca del 35% de referencia.</p></div>
+   <div class="sc"><b>Asistencia a la cita</b><span><span class="pill risk">Riesgo alto</span></span><p>69% en septiembre y 33% en octubre.</p></div>
+   <div class="sc"><b>Ritmo de cierres</b><span><span class="pill risk">A la baja</span></span><p>4 cierres la primera semana, 1 por semana después y ninguno desde el 1 de octubre.</p></div>
+   <div class="sc"><b>Dinero y precio</b><span><span class="pill mid">En vigilancia</span></span><p>El dinero es la objeción principal. 2.400€ en cuatro pagos de 600€ dependen de la semana 12.</p></div>
+   <div class="sc"><b>Calidad de la agenda</b><span><span class="pill mid">Mejorable</span></span><p>Datos de contacto erróneos, leads poco calientes y una ficha «muy motivada» que no lo era.</p></div>
+   <div class="sc"><b>Garantía</b><span><span class="pill mid">Sin resolver</span></span><p>Tres clientas la han pedido y no hay respuesta escrita.</p></div>
+   <div class="sc"><b>Capacidad comercial</b><span><span class="pill ok">Holgada</span></span><p>Hay capacidad para unas 40 citas a la semana y se agendan unas 7 a 12.</p></div>
+  </div>
+</section>
+<section>
+  <h2>Resumen <em>ejecutivo</em></h2>
+  <div class="big"><div><span class="n">6.465€</span><span class="l">cobrados con comprobante bancario</span></div><div><span class="n">9.832€</span><span class="l">comprometidos como mínimo (3.367€ pendientes)</span></div><div><span class="n">7</span><span class="l">cierres con pago confirmado, más 1 por confirmar</span></div></div>
+  <div class="exec">
+   <div><i>1</i><p><strong>El programa vende.</strong> 8 cierres comunicados en siete semanas y un ticket real medio de 1.405€.</p></div>
+   <div><i>2</i><p><strong>La fuga está antes de la llamada.</strong> Se celebraron 34 de 60 citas (57%), y la asistencia cayó del 69% al 33%.</p></div>
+   <div><i>3</i><p><strong>La conversación defiende bien.</strong> Con la llamada celebrada, el cierre verificado es del 19% y el techo del 33%.</p></div>
+   <div><i>4</i><p><strong>Las objeciones se repiten:</strong> dinero, consultarlo con otra persona y garantía.</p></div>
+   <div><i>5</i><p><strong>El ritmo de cierres se enfría:</strong> 4 en la primera semana, 1 por semana después y ninguno desde el 1 de octubre.</p></div>
+   <div><i>6</i><p><strong>Hay una decisión de oferta pendiente:</strong> el acelerado de 797€ y la garantía necesitan una regla escrita.</p></div>
+  </div>
+  <p class="src">Citas: 31 ago–22 sep (39 fichas) y 1–20 oct (21 citas con resultado). Entre el 23 y el 30 de septiembre no hay recuento de citas.</p>
+</section>
+<section>
+  <h2>La historia <em>de siete semanas</em></h2>
+  <p class="dek">Dinero cobrado por semana según la fecha del pago. Se concentra al principio.</p>
+  <div class="chart"><svg viewBox="0 0 620 290" role="img" aria-label="Cobrado por semana"><line x1="20" y1="230" x2="610" y2="230" stroke="#2a2722"/><rect x="40" y="45.0" width="58" height="185.0" fill="#C9A84C"/><text x="69" y="37.0" text-anchor="middle" style="fill:#EDE7D9;font-size:12px;font-weight:600">3.474€</text><text x="69" y="250" text-anchor="middle">31 ago</text><text x="69" y="268" text-anchor="middle" style="fill:#8A8372;font-size:10px">4 cierres</text><rect x="124" y="155.6" width="58" height="74.4" fill="#C9A84C"/><text x="153" y="147.6" text-anchor="middle" style="fill:#EDE7D9;font-size:12px;font-weight:600">1.397€</text><text x="153" y="250" text-anchor="middle">7 sep</text><text x="153" y="268" text-anchor="middle" style="fill:#8A8372;font-size:10px">1 cierre</text><rect x="208" y="228" width="58" height="2" fill="#D07A5C"/><text x="237" y="222.0" text-anchor="middle" style="fill:#EDE7D9;font-size:12px;font-weight:600">0€</text><text x="237" y="250" text-anchor="middle">14 sep</text><text x="237" y="268" text-anchor="middle" style="fill:#8A8372;font-size:10px">1 cierre</text><rect x="292" y="228" width="58" height="2" fill="#D07A5C"/><text x="321" y="222.0" text-anchor="middle" style="fill:#EDE7D9;font-size:12px;font-weight:600">0€</text><text x="321" y="250" text-anchor="middle">21 sep</text><text x="321" y="268" text-anchor="middle" style="fill:#8A8372;font-size:10px">1 cierre</text><rect x="376" y="145.1" width="58" height="84.9" fill="#C9A84C"/><text x="405" y="137.1" text-anchor="middle" style="fill:#EDE7D9;font-size:12px;font-weight:600">1.594€</text><text x="405" y="250" text-anchor="middle">28 sep</text><text x="405" y="268" text-anchor="middle" style="fill:#8A8372;font-size:10px">1 cierre</text><rect x="460" y="228" width="58" height="2" fill="#D07A5C"/><text x="489" y="222.0" text-anchor="middle" style="fill:#EDE7D9;font-size:12px;font-weight:600">0€</text><text x="489" y="250" text-anchor="middle">5 oct</text><text x="489" y="268" text-anchor="middle" style="fill:#8A8372;font-size:10px">0 cierres</text><rect x="544" y="228" width="58" height="2" fill="#D07A5C"/><text x="573" y="222.0" text-anchor="middle" style="fill:#EDE7D9;font-size:12px;font-weight:600">0€</text><text x="573" y="250" text-anchor="middle">12 oct</text><text x="573" y="268" text-anchor="middle" style="fill:#8A8372;font-size:10px">0 cierres</text></svg></div>
+  <p class="note">La primera semana aportó el 54% de todo lo cobrado hasta ahora. Desde el 5 de octubre no ha entrado ningún cobro nuevo.</p>
+</section>
+<section>
+  <h2>El embudo <em>completo</em></h2>
+  <div class="pair">
+   <div><h4>Septiembre · 31 ago–22 sep</h4><div class="bars"><div class="brow"><span class="lab">Citas agendadas</span><div class="track"><div class="seg a" style="width:100.0%"></div></div><span class="val">39</span></div><div class="brow"><span class="lab">Celebradas</span><div class="track"><div class="seg a" style="width:69.2%"></div></div><span class="val">27 · 69%</span></div><div class="brow"><span class="lab">Perdidas sin hablar</span><div class="track"><div class="seg red" style="width:30.8%"></div></div><span class="val">12 · 31%</span></div><div class="brow"><span class="lab">Cierre verificado</span><div class="track"><div class="seg a" style="width:12.8%"></div></div><span class="val">5 · 13%</span></div><div class="brow"><span class="lab">Techo con pagos en proceso</span><div class="track"><div class="seg a" style="width:23.1%"></div></div><span class="val">9 · 23%</span></div></div></div>
+   <div><h4>Octubre · 1–20 oct</h4><div class="bars"><div class="brow"><span class="lab">Citas con resultado</span><div class="track"><div class="seg a" style="width:53.8%"></div></div><span class="val">21</span></div><div class="brow"><span class="lab">Celebradas</span><div class="track"><div class="seg a" style="width:17.9%"></div></div><span class="val">7 · 33%</span></div><div class="brow"><span class="lab">No presentadas o canceladas</span><div class="track"><div class="seg red" style="width:33.3%"></div></div><span class="val">13 · 62%</span></div><div class="brow"><span class="lab">Cierre confirmado</span><div class="track"><div class="seg a" style="width:2.6%"></div></div><span class="val">1</span></div></div></div>
+  </div>
+  <p class="note">Sobre llamadas celebradas, el cierre verificado de septiembre fue del <strong>19%</strong> y el techo del <strong>33%</strong>. Tu referencia es el 35%.</p>
+</section>
+<section>
+  <h2>Asistencia: <em>la palanca principal</em></h2>
+  <div class="bul chart" style="margin-top:34px">
+   <div class="r"><span>Septiembre</span><div class="tr"><div class="f" style="width:69%;background:var(--teal)"></div><div class="tg" style="left:80%"><span class="tgl">Objetivo 80%</span></div></div><span class="v">69%</span></div>
+   <div class="r"><span>Octubre</span><div class="tr"><div class="f" style="width:33%;background:var(--red)"></div><div class="tg" style="left:80%"></div></div><span class="v">33%</span></div></div>
+  <div class="cost"><p>Con la asistencia de septiembre, las 21 citas de octubre habrían sido unas <strong>14,5 llamadas en lugar de 7</strong>.</p>
+  <div class="row"><div><span class="n">+7,5</span><span class="l">llamadas más celebradas</span></div><div><span class="n">+1,4 a +2,5</span><span class="l">cierres más</span></div><div><span class="n">2.000€ – 3.500€</span><span class="l">a 1.397€ de ticket (estimación)</span></div></div></div>
+</section>
+<section>
+  <h2>Ventas y <em>comisión del 15%</em></h2>
+  <p class="dek">Cierres del 31 ago al 20 oct 2026, sobre el ticket total de cada venta.</p>
+  <div class="tablewrap"><table><tr><th>Closer</th><th>Clienta</th><th class="num">Ticket total</th><th class="num">15%</th></tr>
+  <tr><td>María</td><td>Anabel</td><td class="num">1.397€</td><td class="num">209,55€</td></tr><tr><td>María</td><td>Victoria</td><td class="num">1.397€</td><td class="num">209,55€</td></tr><tr><td>María</td><td>Amparo</td><td class="num">1.397€</td><td class="num">209,55€</td></tr><tr><td>María</td><td>Inmaculada</td><td class="num">1.397€</td><td class="num">209,55€</td></tr><tr><td>María</td><td>Fadia</td><td class="num">1.397€</td><td class="num">209,55€</td></tr><tr><td>María</td><td>Silvia</td><td class="num">1.397€</td><td class="num">209,55€</td></tr>
+  <tr class="total"><td>María</td><td>Total</td><td class="num">8.382€</td><td class="num">1.257,30€</td></tr>
+  <tr><td>Montse</td><td>Amaya</td><td class="num">1.450€</td><td class="num">217,50€</td></tr>
+  <tr class="total"><td>Montse</td><td>Total</td><td class="num">1.450€</td><td class="num">217,50€</td></tr>
+  <tr class="total"><td></td><td>Total conjunto</td><td class="num">9.832€</td><td class="num">1.474,80€</td></tr></table></div>
+  <p class="note">Los tickets de 1.397€ son 797€ + 600€ y el de Amaya son 3 cuotas Klarna de 483,33€. Victoria tiene 797€ cobrados y 600€ pendientes. Tamara sigue sin comprobante y no está en la tabla.</p>
+</section>
+<section>
+  <h2>Por qué se <em>pierde</em> una clienta</h2>
+  <p class="dek">Primer periodo (39 fichas). Una misma clienta puede tener más de una causa.</p>
+  <div class="bars">
+   <div class="brow"><span class="lab">Cancela o no llega</span><div class="track"><div class="seg red" style="width:44.0%"></div></div><span class="val">44%</span></div>
+   <div class="brow"><span class="lab">Consultar con pareja</span><div class="track"><div class="seg a" style="width:28.0%"></div></div><span class="val">28%</span></div>
+   <div class="brow"><span class="lab">No tiene el dinero</span><div class="track"><div class="seg a" style="width:24.0%"></div></div><span class="val">24%</span></div>
+   <div class="brow"><span class="lab">Le parece caro</span><div class="track"><div class="seg a" style="width:20.0%"></div></div><span class="val">20%</span></div>
+  </div>
+  <p class="src">Porcentaje sobre las 25 fichas no cerradas con motivo registrado.</p>
+  <h3>Dónde se detiene la llamada cuando no cierra</h3>
+  <div class="bars"><div class="brow"><span class="lab">Precio y acceso</span><div class="track"><div class="seg a" style="width:100.0%"></div></div><span class="val">56%</span></div><div class="brow"><span class="lab">Panel visionario</span><div class="track"><div class="seg a" style="width:28.6%"></div></div><span class="val">16%</span></div><div class="brow"><span class="lab">Explicación del programa</span><div class="track"><div class="seg a" style="width:21.4%"></div></div><span class="val">12%</span></div><div class="brow"><span class="lab">Objetivos</span><div class="track"><div class="seg a" style="width:14.3%"></div></div><span class="val">8%</span></div></div>
+  <p class="note">Más de la mitad de las llamadas que no cierran llegan a hablar de precio: la presentación del programa funciona.</p>
+</section>
+<section>
+  <h2>Tendencias <em>que se repiten</em></h2>
+  <div class="trend"><div class="tw hd"><span>Tendencia</span><span>Septiembre</span><span>Octubre</span><span>Dirección</span></div><div class="tw"><b>La cita se cae</b><span>31% de citas perdidas</span><span>62% de citas perdidas</span><span><span class="pill risk">Empeora</span></span></div><div class="tw"><b>El dinero decide</b><span>Tope de 300€ en total; compra aplazada al 13 oct</span><span>50€ al mes como máximo; 4 fichas cerradas por precio</span><span><span class="pill mid">Se repite</span></span></div><div class="tw"><b>Decidir con otra persona</b><span>Pareja, hermano, hija</span><span>Pareja</span><span><span class="pill mid">Se repite</span></span></div><div class="tw"><b>Garantía y salida</b><span>2 casos</span><span>1 caso y preguntas frecuentes</span><span><span class="pill risk">Crece</span></span></div><div class="tw"><b>Datos de contacto</b><span>10 incidencias</span><span>Correo y teléfono inexistentes; clienta sin WhatsApp</span><span><span class="pill mid">Se repite</span></span></div><div class="tw"><b>Formato de videollamada</b><span>Cámara y micrófono desde el móvil</span><span>Prefiere llamada; llamada interrumpida; otra franja horaria</span><span><span class="pill mid">Se repite</span></span></div><div class="tw"><b>El cierre necesita tiempo</b><span>Compra aplazada al 13 oct</span><span>Fadia cierra a los 15 días</span><span><span class="pill ok">Funciona</span></span></div></div>
+</section>
+<section>
+  <h2>El comité <em>de expertos</em></h2>
+  <p class="dek">Cuatro especialistas han revisado los mismos datos, cada uno desde su ángulo.</p>
+  <div class="exp">
+   <div class="e"><h4>Ventas high-ticket</h4><b>El cierre no es el problema</b><p>El cierre verificado del 19% (techo 33%) está cerca del 35% de referencia. La mayor palanca es la asistencia y la segunda, pasar del cierre verificado al techo. Cerrar el pago dentro de la llamada y proponer segunda llamada con la pareja.</p></div>
+   <div class="e"><h4>Captación y funnel</h4><b>La asistencia cae por varias causas</b><p>Las hipótesis, de más a menos probable: leads más fríos, falta de confirmación, choque con el precio y problemas de horario o dispositivo. Propone confirmar al agendar y a 24 h, 3 h y 1 h, y ampliar el formulario.</p></div>
+   <div class="e"><h4>Finanzas y pricing</h4><b>El riesgo está en los 600€ de la semana 12</b><p>Hay 2.400€ de segundos pagos sin garantía. El acelerado compensa si por cada 4 clientas que bajan a 797€ entran 3 cierres nuevos. Octubre es un problema de asistencia, no de precio.</p></div>
+   <div class="e"><h4>Operaciones y datos</h4><b>Falta una definición única de cierre</b><p>Hay 14 fichas «cerrado», 9 cierres comunicados y 5 verificados por banco. Propone definir cierre como pago confirmado y un cuadro de mando semanal de siete indicadores.</p></div>
+  </div>
+  <div class="verdict" style="margin-top:20px"><span class="tag">Coinciden los cuatro</span><h3>Primero la asistencia, después la regla de precio y por último la medición.</h3>
+  <p>Nadie propone cambiar el guion de venta. Los cuatro piden confirmar la cita, validar los datos de entrada, escribir una regla para el acelerado y medir con una definición única de cierre.</p></div>
+</section>
+<section>
+  <h2>Precio y <em>programa acelerado</em></h2>
+  <p class="dek">El acelerado de 797€ rebaja 600€ (−43%). Compensa mientras salve más ventas de las que resta.</p>
+  <div class="tablewrap"><table><tr><th>Si canibaliza…</th><th class="num">Pierdes</th><th class="num">Cierres nuevos necesarios</th><th class="num">Sobre las 23 citas con objeción de dinero (por cada 100)</th></tr>
+  <tr><td>10% de los cierres (1,3)</td><td class="num">780€</td><td class="num">1</td><td class="num">4%</td></tr>
+  <tr><td>30% de los cierres (3,9)</td><td class="num">2.340€</td><td class="num">2,9</td><td class="num">13%</td></tr></table></div>
+  <p class="note">Regla de equilibrio: por cada 4 clientas que bajan de 1.397€ a 797€ hacen falta 3 cierres nuevos. Las objeciones más duras (300€ de tope, 50€ al mes, menos de 100€ al mes) probablemente no llegan ni a 797€. Desde el 5 de octubre no hay cierres con el acelerado.</p>
+</section>
+<section>
+  <h2>Proyección <em>a 30 días</em></h2>
+  <p class="dek">Del 21 de octubre al 19 de noviembre, sobre 31 citas y con supuestos explícitos.</p>
+  <div class="bars">
+   <div class="brow"><span class="lab">Pesimista</span><div class="track"><div class="seg red" style="width:19.5%"></div></div><span class="val">1.397€</span></div>
+   <div class="brow"><span class="lab">Base</span><div class="track"><div class="seg a" style="width:48.6%"></div></div><span class="val">3.474€</span></div>
+   <div class="brow"><span class="lab">Optimista</span><div class="track"><div class="seg a" style="width:100.0%"></div></div><span class="val">7.146€</span></div>
+  </div>
+  <div class="tablewrap"><table><tr><th>Escenario</th><th class="num">Asistencia</th><th class="num">Cierre</th><th class="num">Cierres</th><th class="num">Caja</th></tr>
+  <tr><td>Pesimista</td><td class="num">33%</td><td class="num">10%</td><td class="num">1</td><td class="num">1.397€</td></tr>
+  <tr><td>Base</td><td class="num">50%</td><td class="num">19%</td><td class="num">3</td><td class="num">3.474€</td></tr>
+  <tr><td>Optimista</td><td class="num">69%</td><td class="num">33%</td><td class="num">7</td><td class="num">7.146€</td></tr></table></div>
+  <p class="src">Supuestos: cada venta cobra 797€ al inicio, Ana Isabel paga 600€ el 16 de noviembre y Klarna aporta 0, 483€ o 967€ según el escenario. Fadia y Silvia caen fuera de la ventana. Es una estimación, no una promesa.</p>
+</section>
+<section>
+  <h2>Riesgos <em>por gravedad</em></h2>
+  <div class="risk"><i>1</i><div><strong>La asistencia sigue en el 33%</strong><p>El embudo se seca y los cierres siguen en cero.</p></div><span class="pill risk">Crítico</span></div>
+  <div class="risk"><i>2</i><div><strong>Impago de los 600€ de la semana 12</strong><p>2.400€ sin garantía ni recordatorio previo.</p></div><span class="pill risk">Alto</span></div>
+  <div class="risk"><i>3</i><div><strong>Cifras sin una definición única de cierre</strong><p>Se decide con números inflados (14 fichas, 9 comunicados, 5 verificados).</p></div><span class="pill risk">Alto</span></div>
+  <div class="risk"><i>4</i><div><strong>Demanda floja</strong><p>Ambas closers describen la semana como floja y los leads como poco calientes.</p></div><span class="pill mid">Medio</span></div>
+  <div class="risk"><i>5</i><div><strong>Garantía sin respuesta</strong><p>Tres peticiones; una se perdió por no tener respuesta escrita.</p></div><span class="pill mid">Medio</span></div>
+  <div class="risk"><i>6</i><div><strong>Una sola entrenadora para todas las altas</strong><p>No hay plan B si sube el volumen.</p></div><span class="pill mid">Medio</span></div>
+</section>
+<section>
+  <h2>Veredicto <em>final</em></h2>
+  <div class="verdict"><span class="tag">Veredicto</span><h3>Seguir, con una condición: recuperar la asistencia por encima del 60% en 30 días.</h3>
+  <p>El producto vende, la conversación funciona y hay dinero entrando. Si la asistencia no sube, la proyección se queda en 1.400€ al mes. Si sube a la de septiembre, puede acercarse a 7.100€. La diferencia se juega antes de la llamada.</p></div>
+</section>
+<section>
+  <h2>Plan de <em>acción a 30 días</em></h2>
+  <div class="tl">
+   <div class="s"><h4>Semana 1 · 21–27 oct · Parar la fuga</h4><ul>
+    <li>Confirmar la cita al agendar y a las 24 h, 3 h y 1 h, pidiendo responder SÍ. <strong>Equipo comercial.</strong></li>
+    <li>Validar teléfono y correo al reservar; apellidos obligatorios. <strong>Edu.</strong></li>
+    <li>Definir «cierre» como pago confirmado. <strong>Edu.</strong></li>
+    <li>Retomar seguimientos: Marta, Eva, Sunita, Isabel, Olga y Macarena. <strong>Equipo comercial.</strong></li></ul></div>
+   <div class="s"><h4>Semana 2 · 28 oct–3 nov · Reglas de oferta</h4><ul>
+    <li>Regla escrita del acelerado de 797€ y de la financiación de 837€, con registro de cada uso. <strong>Edu.</strong></li>
+    <li>Respuesta única a garantía y criterios de admisión por perfil de salud. <strong>Edu.</strong></li>
+    <li>Cerrar la conciliación: Tamara, Victoria y comprobantes. <strong>Administración.</strong></li></ul></div>
+   <div class="s"><h4>Semana 3 · 4–10 nov · Cobros y formulario</h4><ul>
+    <li>Pregunta de decisión y de capacidad de inversión en el formulario. <strong>Edu.</strong></li>
+    <li>Recordatorio previo de los 600€ y calendario de Klarna. <strong>Entrenadora.</strong></li>
+    <li>Probar una franja de mañana. <strong>Edu y equipo comercial.</strong></li></ul></div>
+   <div class="s"><h4>Semana 4 · 11–19 nov · Medir y decidir</h4><ul>
+    <li>Revisar los siete indicadores y decidir si el acelerado se mantiene. <strong>Edu.</strong></li>
+    <li>Fijar tope de altas por semana y suplente de la entrenadora. <strong>Entrenadora.</strong></li></ul></div>
+  </div>
+  <h3>Cuadro de mando semanal</h3>
+  <div class="tablewrap"><table><tr><th>Indicador</th><th>Definición</th><th>Alarma (propuesta)</th></tr>
+  <tr><td>Asistencia</td><td>Celebradas entre agendadas, solo primeras citas</td><td>Menos del 60%</td></tr>
+  <tr><td>Confirmación</td><td>Citas que responden SÍ</td><td>Menos del 70%</td></tr>
+  <tr><td>Cierre verificado</td><td>Pagos con comprobante entre llamadas celebradas</td><td>Menos del 25%</td></tr>
+  <tr><td>Brecha ficha-banco</td><td>Fichas «cerrado» menos pagos confirmados</td><td>Más de 0</td></tr>
+  <tr><td>Cobrado y pendiente</td><td>Euros cobrados y pagos aplazados con fecha</td><td>Retraso de más de 7 días</td></tr>
+  <tr><td>Calidad de ficha</td><td>Teléfono, correo y apellidos válidos</td><td>Menos del 95%</td></tr>
+  <tr><td>Citas agendadas</td><td>Por semana</td><td>Menos de 10</td></tr></table></div>
+  <p class="src">Los umbrales son propuestas y se ajustan con los datos de las primeras semanas.</p>
+</section>
+<section>
+  <h2>Lo que <em>los datos no dicen</em></h2>
+  <div class="exec">
+   <div><i>1</i><p>Por qué cae la asistencia. Puede ser tráfico más frío, falta de confirmación, el precio o el horario. Hay que contrastarlo con origen, hora de alta y franja.</p></div>
+   <div><i>2</i><p>Si el acelerado funciona: no hay cierres con él desde el 5 de octubre.</p></div>
+   <div><i>3</i><p>Qué testimonio ayuda a cerrar: la muestra es demasiado pequeña.</p></div>
+   <div><i>4</i><p>Márgenes y costes del programa: no constan en los datos.</p></div>
+   <div><i>5</i><p>Los resultados de varias citas de octubre están pendientes y las muestras son pequeñas: un solo cierre mueve mucho los porcentajes.</p></div>
+  </div>
+  <p class="src">Fuentes: fichas de llamada, grupo de soporte, comprobantes bancarios y reportes de las closers hasta el 20 de octubre.</p>
+</section>
+<footer class="closing"><svg viewBox="0 0 100 100" fill="none" aria-hidden="true"><polygon points="50,4 90,26 90,74 50,96 10,74 10,26" stroke="#C9A84C" stroke-width="3" fill="#060606"/><path d="M33 50 L45 62 L69 36" stroke="#C9A84C" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><h2>El programa funciona. La fuga está antes de la llamada.</h2><p>Closer Search · Informe preparado en exclusiva para Edu Morán · www.closersearch.com</p></footer>
+</div>
