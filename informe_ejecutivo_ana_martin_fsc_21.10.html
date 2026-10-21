@@ -1,0 +1,392 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Programa FSC · Informe ejecutivo</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"><style>
+  /* Layout: portada oscura de marca, columna de lectura de 760px, secciones separadas por filetes finos, gráficos en barras CSS */
+  :root{
+    --bg:#060606; --card:#101010; --soft:#0c0c0c; --line:#2a2722; --ivory:#EDE7D9;
+    --gold:#C9A84C; --gold-soft:#DCC178; --gold-dim:#8E763A;
+    --ink:#EDE7D9; --ink-dim:#B4AC98; --ink-faint:#8A8372;
+    --teal:#5AB48C; --red:#D07A5C; --amber:#D9A441;
+    --f-display:'Cormorant Garamond',Georgia,serif; --f-brand:'Cinzel',Georgia,serif; --f-body:'DM Sans',system-ui,sans-serif;
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15.5px;line-height:1.62;-webkit-font-smoothing:antialiased;
+    padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));}
+  h1,h2,h3,h4{font-family:var(--f-display);font-weight:600;line-height:1.15;color:var(--ink);text-wrap:balance}
+  .wrap{max-width:760px;margin:0 auto}
+  .cover{padding-block:48px 40px;border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:space-between}
+  .brand .mark{display:flex;align-items:center;gap:12px}
+  .brand svg{width:36px;height:36px;flex:none}
+  .brand b{font-family:var(--f-brand);letter-spacing:.05em;font-size:1.05rem;color:var(--ivory);display:block;font-weight:700}
+  .slogan{display:block;font-style:normal;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-dim);margin-top:2px}
+  .brand b span{color:var(--gold)}
+  .meta{font-size:.74rem;color:var(--ink-faint);text-align:right;line-height:1.6}
+  .eyebrow{font-family:var(--f-brand);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-soft);margin:56px 0 14px}
+  h1{font-size:clamp(2rem,6vw,3rem);margin-bottom:18px}
+  h1 em{font-style:normal;color:var(--gold)}
+  .thesis{font-family:var(--f-display);font-style:italic;font-size:1.2rem;color:var(--ink-dim);max-width:60ch;line-height:1.5}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:40px}
+  .kpis div{background:var(--card);padding:18px 16px;min-width:0}
+  .kpis .n{display:block;font-family:var(--f-display);font-size:1.8rem;color:var(--gold);font-variant-numeric:tabular-nums}
+  .kpis .l{font-size:.72rem;color:var(--ink-faint);line-height:1.4}
+  section{padding-block:56px;border-bottom:1px solid var(--line)}
+  section:last-of-type{border-bottom:0}
+  h2{font-size:1.85rem;margin-bottom:10px}
+  h2 em{font-style:normal;color:var(--gold)}
+  .dek{color:var(--ink-dim);max-width:62ch;margin-bottom:24px}
+  h3{font-size:1.25rem;color:var(--gold-soft);margin:30px 0 12px}
+  p{color:var(--ink-dim)}
+  p + p{margin-top:12px}
+  strong{color:var(--ink);font-weight:600}
+  .tablewrap{overflow-x:auto;margin:14px 0 6px}
+  table{width:100%;border-collapse:collapse;font-size:.88rem;min-width:420px}
+  th{text-align:left;font-family:var(--f-brand);font-weight:600;font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-soft);padding:9px 6px;border-bottom:1px solid var(--gold-dim)}
+  td{padding:10px 6px;border-bottom:1px solid var(--line);color:var(--ink-dim);vertical-align:top}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  tr.total td{color:var(--gold-soft);font-weight:600;border-top:1px solid var(--gold-dim);border-bottom:0}
+  .note{border-left:2px solid var(--gold);padding:2px 0 2px 18px;margin:22px 0;font-size:.92rem;color:var(--ink-dim)}
+  .note.teal{border-left-color:var(--teal)} .note.red{border-left-color:var(--red)}
+  .exec{background:var(--card);border:1px solid var(--line)}
+  .exec div{display:flex;gap:16px;padding:18px 22px;border-bottom:1px solid var(--line)}
+  .exec div:last-child{border-bottom:0}
+  .exec i{font-family:var(--f-display);font-size:1.4rem;color:var(--gold);width:22px;flex:none}
+  .exec p{min-width:0}
+  /* verdict */
+  .verdict{background:var(--card);border:1px solid var(--gold-dim);padding:26px 26px;margin-bottom:26px}
+  .verdict .tag{font-family:var(--f-brand);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-soft)}
+  .verdict h3{margin:8px 0 10px;font-size:1.6rem;color:var(--ink)}
+  /* bars */
+  .bars{display:grid;gap:12px;margin:18px 0}
+  .brow{display:grid;grid-template-columns:150px 1fr 74px;gap:12px;align-items:center}
+  .brow .lab{font-size:.84rem;color:var(--ink-dim)}
+  .track{height:24px;background:var(--soft);border:1px solid var(--line);position:relative;display:flex}
+  .seg{height:100%}
+  .seg.a{background:var(--gold)}
+  .seg.b{background:repeating-linear-gradient(135deg,var(--gold-dim) 0 4px,transparent 4px 8px);border-left:1px solid var(--gold-dim)}
+  .seg.red{background:var(--red)}
+  .brow .val{font-family:var(--f-display);font-size:1.05rem;color:var(--gold-soft);text-align:right;font-variant-numeric:tabular-nums}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;font-size:.78rem;color:var(--ink-faint);margin-top:6px}
+  .legend span::before{content:"";display:inline-block;width:12px;height:12px;margin-right:6px;vertical-align:-1px;background:var(--gold)}
+  .legend span.h::before{background:repeating-linear-gradient(135deg,var(--gold-dim) 0 3px,transparent 3px 6px);border:1px solid var(--gold-dim)}
+  /* scorecard */
+  .score{display:grid;gap:10px}
+  .sc{display:grid;grid-template-columns:150px 120px 1fr;gap:14px;background:var(--card);border:1px solid var(--line);padding:14px 16px;align-items:start}
+  .sc b{font-family:var(--f-display);font-size:1.1rem;font-weight:600;color:var(--ink)}
+  .pill{display:inline-block;font-size:.72rem;font-weight:600;padding:3px 10px;border:1px solid;letter-spacing:.02em;white-space:nowrap}
+  .pill.ok{color:var(--teal);border-color:var(--teal)}
+  .pill.mid{color:var(--amber);border-color:var(--amber)}
+  .pill.risk{color:var(--red);border-color:var(--red)}
+  .sc p{font-size:.88rem;min-width:0}
+  .rec{background:var(--card);border:1px solid var(--line);padding:22px 24px;margin-bottom:14px}
+  .rec h4{font-size:1.25rem;color:var(--gold-soft);margin-bottom:8px}
+  .rec p{font-size:.92rem}
+  .rec .why{margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-size:.82rem;color:var(--ink-faint)}
+  .closing{padding-block:56px;text-align:center;border-top:1px solid var(--line)}
+  .closing svg{width:32px;height:32px;margin:0 auto 16px;display:block}
+  .closing h2{font-size:1.6rem;max-width:560px;margin:0 auto 12px}
+  .closing p{font-size:.82rem;color:var(--ink-faint)}
+  .src{font-size:.78rem;color:var(--ink-faint);margin-top:14px}
+  @media (max-width:640px){
+    .kpis{grid-template-columns:1fr 1fr}
+    .brow{grid-template-columns:1fr 64px;grid-template-areas:"lab lab" "track val"}
+    .brow .lab{grid-area:lab}.brow .track{grid-area:track}.brow .val{grid-area:val}
+    .sc{grid-template-columns:1fr}
+    .meta{text-align:left}
+    .exec div{padding:16px}
+  }
+</style>
+<style>.st{display:inline-block;font-size:.7rem;font-weight:600;padding:2px 8px;border:1px solid;white-space:nowrap}
+.st.c{color:var(--teal);border-color:var(--teal)}.st.n{color:var(--red);border-color:var(--red)}.st.s{color:var(--amber);border-color:var(--amber)}.st.x{color:var(--ink-faint);border-color:var(--line)}
+table.log{min-width:620px}table.log td:first-child{white-space:nowrap}</style>
+<style>
+.hero2{display:grid;grid-template-columns:230px 1fr;gap:28px;align-items:center;margin:8px 0 24px}
+.donut text{font-family:var(--f-display);fill:var(--ink)}
+.lg{display:grid;gap:10px}.lg div{display:flex;align-items:baseline;gap:10px;font-size:.92rem;color:var(--ink-dim)}
+.lg b{font-family:var(--f-display);font-size:1.9rem;color:var(--ink);min-width:48px;font-weight:600}
+.lg i{width:12px;height:12px;display:inline-block;flex:none;align-self:center}
+.cT{background:var(--teal)}.cR{background:var(--red)}.cA{background:var(--amber)}.cG{background:var(--ivory)}
+.bul{display:grid;gap:14px;margin:18px 0 6px}
+.bul .r{display:grid;grid-template-columns:110px 1fr 56px;gap:12px;align-items:center;font-size:.86rem;color:var(--ink-dim)}
+.bul .tr{position:relative;height:26px;background:var(--soft);border:1px solid var(--line)}
+.bul .f{height:100%}
+.bul .tg{position:absolute;top:-5px;bottom:-5px;width:2px;background:var(--ivory)}
+.bul .tgl{position:absolute;top:-22px;left:0;transform:translateX(-50%);font-size:.68rem;color:var(--ink-faint);white-space:nowrap}
+.bul .v{font-family:var(--f-display);font-size:1.25rem;color:var(--ink);text-align:right}
+.pair{display:grid;gap:22px;margin:18px 0}
+.pair h4{font-family:var(--f-body);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:8px;font-weight:600}
+.pr{display:grid;grid-template-columns:78px 1fr 90px;gap:10px;align-items:center;margin-bottom:6px;font-size:.84rem;color:var(--ink-dim)}
+.pr .t{height:20px;background:var(--soft);border:1px solid var(--line)}.pr .t div{height:100%}
+.pr .v{text-align:right;font-family:var(--f-display);font-size:1.1rem;color:var(--ink)}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:14px 0}
+.cal .h{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);text-align:center;padding-bottom:2px}
+.cal .c{min-height:64px;background:var(--card);border:1px solid var(--line);padding:6px 6px 4px;display:flex;flex-direction:column;justify-content:space-between}
+.cal .c.we{background:var(--soft)}.cal .c.off{opacity:.28}
+.cal .c.hot{border-color:var(--red)}
+.cal .d{font-size:.74rem;color:var(--ink-faint)}
+.cal .dots{display:flex;flex-wrap:wrap;gap:3px}
+.cal .dots i{width:10px;height:10px;border-radius:50%;display:block}
+.keyr{display:flex;flex-wrap:wrap;gap:16px;font-size:.78rem;color:var(--ink-faint)}
+.keyr i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px}
+.big{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:18px 0}
+.big div{background:var(--card);padding:20px 16px}.big .n{display:block;font-family:var(--f-display);font-size:2.2rem;color:var(--gold);line-height:1.1}.big .l{font-size:.78rem;color:var(--ink-faint);line-height:1.4}
+.trend{display:grid;gap:8px}
+.tw{display:grid;grid-template-columns:1.2fr 1fr 1fr 110px;gap:10px;background:var(--card);border:1px solid var(--line);padding:12px 14px;align-items:center;font-size:.84rem}
+.tw b{font-family:var(--f-display);font-size:1.05rem;color:var(--ink)}
+.tw.hd{background:none;border:0;border-bottom:1px solid var(--gold-dim);padding:4px 14px;font-family:var(--f-brand);font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-soft)}
+.chart svg{width:100%;height:auto;display:block}
+.chart text{font-family:var(--f-body);fill:var(--ink-dim);font-size:11px}
+.cost{background:var(--card);border:1px solid var(--gold-dim);padding:26px;margin:18px 0}
+.cost .row{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:14px}
+.cost .row div{border-top:1px solid var(--line);padding-top:10px}
+.cost .n{display:block;font-family:var(--f-display);font-size:1.9rem;color:var(--gold)}
+.cost .l{font-size:.78rem;color:var(--ink-faint)}
+@media (max-width:640px){.hero2{grid-template-columns:1fr}.pr{grid-template-columns:62px 1fr 76px}.bul .r{grid-template-columns:80px 1fr 48px}.tw{grid-template-columns:1fr 1fr}.tw.hd{display:none}.big,.cost .row{grid-template-columns:1fr}.cal .c{min-height:52px;padding:4px}}
+</style>
+<style>
+.exp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}
+.exp .e{background:var(--card);border:1px solid var(--line);padding:18px 18px 16px}
+.exp .e h4{font-family:var(--f-brand);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:6px}
+.exp .e b{display:block;font-family:var(--f-display);font-size:1.2rem;color:var(--ink);margin-bottom:6px;line-height:1.25;font-weight:600}
+.exp .e p{font-size:.84rem}
+.tl{display:grid;gap:0;margin:18px 0;border-left:1px solid var(--gold-dim)}
+.tl .s{padding:2px 0 22px 22px;position:relative}
+.tl .s::before{content:"";position:absolute;left:-5px;top:8px;width:9px;height:9px;background:var(--gold)}
+.tl .s h4{font-size:1.15rem;color:var(--gold-soft);margin-bottom:4px}
+.tl .s li{font-size:.9rem;color:var(--ink-dim);margin-left:18px}
+.stack{display:flex;height:34px;border:1px solid var(--line);margin:14px 0 8px}
+.stack div{display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;color:#060606}
+.risk{display:grid;grid-template-columns:34px 1fr 90px;gap:12px;background:var(--card);border:1px solid var(--line);padding:12px 14px;margin-bottom:8px;align-items:start;font-size:.88rem}
+.risk i{font-family:var(--f-display);font-size:1.5rem;color:var(--gold);font-style:normal;line-height:1}
+.risk p{font-size:.86rem}
+@media (max-width:640px){.exp{grid-template-columns:1fr}.risk{grid-template-columns:28px 1fr}.risk .pill{grid-column:2;justify-self:start}}
+</style></head><body>
+<div class="wrap">
+<header class="cover">
+  <div class="brand"><div class="mark"><svg viewBox="0 0 100 100" fill="none" aria-hidden="true"><polygon points="50,4 90,26 90,74 50,96 10,74 10,26" stroke="#C9A84C" stroke-width="3" fill="#060606"/><path d="M33 50 L45 62 L69 36" stroke="#C9A84C" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>CLOSER<span> SEARCH</span></b><em class="slogan">Selección de talento de cierre</em></div></div>
+  <div class="meta">Preparado en exclusiva para <strong>Ana Martín</strong><br>Tracker: 26 abr – 19 oct 2026 · Equipo: 14 sep – 20 oct</div></div>
+  <div class="eyebrow">Informe ejecutivo de situación</div>
+  <h1>Programa FSC: <em>análisis completo</em> desde el primer día</h1>
+  <p class="thesis">Qué ha pasado, por qué, qué sabemos y qué no, y qué hacer en los próximos 30 días.</p>
+  <div class="kpis"><div><span class="n">27,0%</span><span class="l">Cierre de mayo a agosto (33 de 122 asistencias)</span></div><div><span class="n">5%</span><span class="l">Cierre desde el 14/9 (4 de 78 asistencias)</span></div><div><span class="n">2,3</span><span class="l">Llamadas por día desde el 14/9, frente a 1,1 antes</span></div><div><span class="n">10→20€</span><span class="l">CPM de mayo a septiembre</span></div></div>
+</header>
+
+<section>
+  <h2>Veredicto <em>ejecutivo</em></h2>
+  <div class="verdict"><span class="tag">Veredicto</span><h3>Viable y recuperable. La oferta vende; lo que ha cambiado es qué llega a la llamada y cómo lo atendemos.</h3>
+  <p>Tu julio fue de 15 ventas y un 42 % de cierre, y entre el 16/8 y el 13/9, ya a 847 €, cerraste un 23 % (7 de 30 asistencias). Desde el 14/9, cuando empezamos a atender llamadas, el cierre ronda el 5 % (4 de 78). Una parte de esa caída es nuestra (arranque del equipo, fichas a medias, seguimientos tardíos) y la asumimos. Otra probablemente viene del stock de leads antiguos que había que limpiar, de un tráfico con menos volumen y de un bot que no filtra, pero eso es una hipótesis que hay que medir. Hoy no podemos repartir el peso de cada causa, y por eso proponemos un piloto de 4 semanas que lo mida.</p></div>
+  <div class="score">
+   <div class="sc"><b>Producto y oferta</b><span><span class="pill ok">Sólido</span></span><p>Julio: 15 ventas y 42 % de cierre. Entre el 16/8 y el 13/9, ya a 847 €, un 23 %.</p></div>
+   <div class="sc"><b>Cierre desde el 14/9</b><span><span class="pill risk">Riesgo alto</span></span><p>~5 % con 78 asistencias, frente a ~23 % antes con 30. La diferencia es real (p ≈ 0,005), aunque los intervalos son amplios.</p></div>
+   <div class="sc"><b>Precio</b><span><span class="pill mid">No concluyente</span></span><p>Antes del 14/9 el cierre con 647 € (26 %) y con 847 € (23 %) es parecido, pero con 30 asistencias a 847 € no se puede descartar un efecto.</p></div>
+   <div class="sc"><b>Tráfico</b><span><span class="pill risk">Riesgo</span></span><p>El CPM se duplica (10 → 20 €) y entran unos 13 leads nuevos por semana. El coste por lead de octubre (6,1 €) es normal: el problema es el volumen.</p></div>
+   <div class="sc"><b>Mensaje del bot</b><span><span class="pill mid">Mejorable</span></span><p>Anuncia 400–900 € en vez de 847 € y no aclara que FSC no es una bolsa de empleo.</p></div>
+   <div class="sc"><b>CRM y fichas</b><span><span class="pill mid">En corrección</span></span><p>Estructura nueva en marcha, pero las fichas llegan casi vacías y el motivo de pérdida no se registraba.</p></div>
+   <div class="sc"><b>Instagram</b><span><span class="pill risk">Riesgo</span></span><p>A 3/10, el 39 % de los leads acumulados (50 de 128) había caducado sin contacto humano por la ventana de respuesta del canal.</p></div>
+   <div class="sc"><b>Capacidad comercial</b><span><span class="pill ok">Holgada</span></span><p>Hay hueco para bastantes más llamadas de las que se atienden; los fines de semana apenas se agenda.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>Resumen <em>ejecutivo</em></h2>
+  <div class="big"><div><span class="n">~60</span><span class="l">videollamadas atendidas por el equipo de cierre</span></div><div><span class="n">4</span><span class="l">ventas cerradas (3 en 3 cuotas y 1 en pago único)</span></div><div><span class="n">3.388€</span><span class="l">de ticket vendido (4 × 847 €)</span></div></div>
+  <div class="exec">
+   <div><i>1</i><p><strong>La oferta vende.</strong> Julio: 15 ventas a 647 €. Entre el 16/8 y el 13/9, a 847 €: 7 ventas en 30 asistencias (23 %).</p></div>
+   <div><i>2</i><p><strong>El cambio se ve el 14/9.</strong> Desde ese día se atienden el doble de llamadas con la misma inversión y los mismos leads nuevos al día, y el cierre cae a ~5 % (4 de 78). Es un corte elegido al ver los datos y coincide con varios cambios a la vez.</p></div>
+   <div><i>3</i><p><strong>Las llamadas extra probablemente salen del stock acumulado.</strong> Son leads antiguos y fríos que llevaban meses sin respuesta. Limpiarlos era necesario, pero es una hipótesis que hay que medir: hasta ahora no se registraba la antigüedad del lead.</p></div>
+   <div><i>4</i><p><strong>No vemos una señal clara de precio.</strong> El cierre con 647 € (26 %) y con 847 € (23 %) antes del 14/9 es parecido, aunque la muestra a 847 € es pequeña y no se puede descartar un efecto moderado.</p></div>
+   <div><i>5</i><p><strong>El tráfico se ha encarecido (CPM) y entran unos 13 leads nuevos por semana.</strong> Sin captación nueva, la agenda depende del stock.</p></div>
+   <div><i>6</i><p><strong>Hay que medir antes de decidir.</strong> Un piloto de 4 semanas separará leads frescos de antiguos y nos dirá cuánto pesa cada causa. Termina el 19/11.</p></div>
+  </div>
+  <p class="src">Cifras del tracker diario de Sequoia Sales. Ventas = unidades del tracker; hay 4 ventas facturadas sin unidad que no se cuentan, y sumarlas subiría el cierre unos 2–4 puntos. Intervalos del 95 %: 7 de 30 = 23 % (12–41 %); 4 de 78 = 5 % (2–12 %). Los porcentajes de septiembre–octubre completos (6 de 89 = 6,7 %) incluyen las dos primeras semanas de septiembre.</p>
+</section>
+
+<section>
+  <h2>La historia <em>semana a semana</em></h2>
+  <p class="dek">Asistencias a la llamada y ventas por semana. Hasta mediados de septiembre se mueven juntas.</p>
+  <div class="chart"><svg viewBox="0 0 620 300" role="img" aria-label="Asistencias y ventas por semana"><line x1="30" x2="610" y1="240" y2="240" stroke="#2a2722"/><line x1="30" x2="610" y1="188.5" y2="188.5" stroke="#1c1a16"/><text x="24" y="192.5" text-anchor="end" style="font-size:10px;fill:#8A8372">5</text><line x1="30" x2="610" y1="137.0" y2="137.0" stroke="#1c1a16"/><text x="24" y="141.0" text-anchor="end" style="font-size:10px;fill:#8A8372">10</text><line x1="30" x2="610" y1="85.5" y2="85.5" stroke="#1c1a16"/><text x="24" y="89.5" text-anchor="end" style="font-size:10px;fill:#8A8372">15</text><rect x="32.0" y="209.1" width="20.2" height="30.9" fill="#8E763A"/><rect x="36.0" y="219.4" width="12.1" height="20.6" fill="#C9A84C"/><text x="42.1" y="256" text-anchor="middle" style="font-size:10px">4/5</text><rect x="56.2" y="198.8" width="20.2" height="41.2" fill="#8E763A"/><rect x="60.2" y="229.7" width="12.1" height="10.3" fill="#C9A84C"/><rect x="80.3" y="188.5" width="20.2" height="51.5" fill="#8E763A"/><rect x="84.4" y="229.7" width="12.1" height="10.3" fill="#C9A84C"/><rect x="104.5" y="116.4" width="20.2" height="123.6" fill="#8E763A"/><rect x="108.5" y="229.7" width="12.1" height="10.3" fill="#C9A84C"/><text x="114.6" y="256" text-anchor="middle" style="font-size:10px">25/5</text><rect x="128.7" y="137.0" width="20.2" height="103.0" fill="#8E763A"/><rect x="132.7" y="229.7" width="12.1" height="10.3" fill="#C9A84C"/><rect x="152.8" y="157.6" width="20.2" height="82.4" fill="#8E763A"/><rect x="156.9" y="219.4" width="12.1" height="20.6" fill="#C9A84C"/><rect x="177.0" y="188.5" width="20.2" height="51.5" fill="#8E763A"/><rect x="181.0" y="219.4" width="12.1" height="20.6" fill="#C9A84C"/><text x="187.1" y="256" text-anchor="middle" style="font-size:10px">15/6</text><rect x="201.2" y="198.8" width="20.2" height="41.2" fill="#8E763A"/><rect x="225.3" y="126.7" width="20.2" height="113.3" fill="#8E763A"/><rect x="229.4" y="198.8" width="12.1" height="41.2" fill="#C9A84C"/><rect x="249.5" y="116.4" width="20.2" height="123.6" fill="#8E763A"/><rect x="253.5" y="209.1" width="12.1" height="30.9" fill="#C9A84C"/><text x="259.6" y="256" text-anchor="middle" style="font-size:10px">6/7</text><rect x="273.7" y="219.4" width="20.2" height="20.6" fill="#8E763A"/><rect x="277.7" y="229.7" width="12.1" height="10.3" fill="#C9A84C"/><rect x="297.8" y="137.0" width="20.2" height="103.0" fill="#8E763A"/><rect x="301.9" y="209.1" width="12.1" height="30.9" fill="#C9A84C"/><rect x="322.0" y="209.1" width="20.2" height="30.9" fill="#8E763A"/><rect x="326.0" y="198.8" width="12.1" height="41.2" fill="#C9A84C"/><text x="332.1" y="256" text-anchor="middle" style="font-size:10px">27/7</text><rect x="346.2" y="178.2" width="20.2" height="61.8" fill="#8E763A"/><rect x="350.2" y="229.7" width="12.1" height="10.3" fill="#C9A84C"/><rect x="370.3" y="178.2" width="20.2" height="61.8" fill="#8E763A"/><rect x="374.4" y="229.7" width="12.1" height="10.3" fill="#C9A84C"/><rect x="394.5" y="167.9" width="20.2" height="72.1" fill="#8E763A"/><rect x="398.5" y="229.7" width="12.1" height="10.3" fill="#C9A84C"/><text x="404.6" y="256" text-anchor="middle" style="font-size:10px">17/8</text><rect x="418.7" y="167.9" width="20.2" height="72.1" fill="#8E763A"/><rect x="422.7" y="219.4" width="12.1" height="20.6" fill="#C9A84C"/><rect x="442.8" y="188.5" width="20.2" height="51.5" fill="#8E763A"/><rect x="446.9" y="219.4" width="12.1" height="20.6" fill="#C9A84C"/><rect x="467.0" y="157.6" width="20.2" height="82.4" fill="#8E763A"/><rect x="471.0" y="229.7" width="12.1" height="10.3" fill="#C9A84C"/><text x="477.1" y="256" text-anchor="middle" style="font-size:10px">7/9</text><rect x="491.2" y="75.2" width="20.2" height="164.8" fill="#8E763A"/><rect x="495.2" y="229.7" width="12.1" height="10.3" fill="#C9A84C"/><rect x="515.3" y="44.3" width="20.2" height="195.7" fill="#8E763A"/><rect x="539.5" y="64.9" width="20.2" height="175.1" fill="#8E763A"/><text x="549.6" y="256" text-anchor="middle" style="font-size:10px">28/9</text><rect x="563.7" y="106.1" width="20.2" height="133.9" fill="#8E763A"/><rect x="567.7" y="219.4" width="12.1" height="20.6" fill="#C9A84C"/><rect x="587.8" y="126.7" width="20.2" height="113.3" fill="#8E763A"/><rect x="591.9" y="229.7" width="12.1" height="10.3" fill="#C9A84C"/><line x1="389.0" x2="389.0" y1="24" y2="240" stroke="#5AB48C" stroke-width="1.5" stroke-dasharray="4 3"/><text x="385.0" y="20" text-anchor="end" style="fill:#5AB48C;font-size:11px">16/8 · sube a 847 €</text><line x1="489.2" x2="489.2" y1="24" y2="240" stroke="#D07A5C" stroke-width="1.5" stroke-dasharray="4 3"/><text x="493.2" y="20" text-anchor="start" style="fill:#D07A5C;font-size:11px">14/9 · llamadas x2</text><rect x="30" y="282" width="10" height="10" fill="#8E763A"/><text x="46" y="291" style="font-size:11px">Asistencias a la llamada</text><rect x="200" y="282" width="10" height="10" fill="#C9A84C"/><text x="216" y="291" style="font-size:11px">Ventas (unidades del tracker)</text></svg></div>
+  <p class="note">Desde el 14/9 las asistencias a la llamada se duplican y las ventas no las acompañan. Coincide con la entrada del equipo, con el trabajo sobre leads antiguos y con otros cambios a la vez, y no podemos separar todavía cuánto es cada cosa.</p>
+</section>
+
+<section>
+  <h2>El embudo <em>completo</em></h2>
+  <div class="pair">
+   <div><h4>16 ago – 13 sep · con tu atención y a 847 €</h4><div class="bars"><div class="brow"><span class="lab">Leads nuevos</span><div class="track"><div class="seg a" style="width:89.2%"></div></div><span class="val">58</span></div><div class="brow"><span class="lab">Agendas</span><div class="track"><div class="seg a" style="width:44.6%"></div></div><span class="val">29</span></div><div class="brow"><span class="lab">Llamadas hechas</span><div class="track"><div class="seg a" style="width:39.3%"></div></div><span class="val">33</span></div><div class="brow"><span class="lab">Asistencias</span><div class="track"><div class="seg a" style="width:35.7%"></div></div><span class="val">30</span></div><div class="brow"><span class="lab">Ventas</span><div class="track"><div class="seg a" style="width:25.0%"></div></div><span class="val">7 · 23%</span></div></div></div>
+   <div><h4>14 sep – 19 oct · equipo de cierre</h4><div class="bars"><div class="brow"><span class="lab">Leads nuevos</span><div class="track"><div class="seg a" style="width:100.0%"></div></div><span class="val">65</span></div><div class="brow"><span class="lab">Agendas</span><div class="track"><div class="seg a" style="width:84.6%"></div></div><span class="val">55</span></div><div class="brow"><span class="lab">Llamadas hechas</span><div class="track"><div class="seg a" style="width:100.0%"></div></div><span class="val">84</span></div><div class="brow"><span class="lab">Asistencias</span><div class="track"><div class="seg a" style="width:92.9%"></div></div><span class="val">78</span></div><div class="brow"><span class="lab">Ventas</span><div class="track"><div class="seg red" style="width:14.3%"></div></div><span class="val">4 · 5%</span></div></div></div>
+  </div>
+  <p class="note">El periodo posterior dura 36 días y el anterior 29, así que las cifras absolutas no son comparables al 100 %. Por día: llamadas 1,1 → 2,3 y leads nuevos 2,0 → 1,8, con 15 € de inversión diaria en ambos. Las barras de ventas están ampliadas para verse.</p>
+  <h3>Embudo mes a mes</h3>
+  <div class="tablewrap"><table><tr><th>Mes</th><th class="num">Inversión</th><th class="num">Leads</th><th class="num">Agendas</th><th class="num">Asistencias</th><th class="num">Ventas</th><th class="num">Cierre</th><th class="num">Coste por lead</th><th class="num">CPM</th></tr><tr><td>Mayo</td><td class="num">676 €</td><td class="num">72</td><td class="num">39</td><td class="num">29</td><td class="num">7</td><td class="num">24 %</td><td class="num">9,4 €</td><td class="num">10 €</td></tr><tr><td>Junio</td><td class="num">457 €</td><td class="num">72</td><td class="num">24</td><td class="num">29</td><td class="num">5</td><td class="num">17 %</td><td class="num">6,4 €</td><td class="num">12 €</td></tr><tr><td>Julio</td><td class="num">503 €</td><td class="num">88</td><td class="num">31</td><td class="num">36</td><td class="num">15</td><td class="num">42 %</td><td class="num">5,7 €</td><td class="num">11 €</td></tr><tr><td>Agosto</td><td class="num">520 €</td><td class="num">55</td><td class="num">28</td><td class="num">28</td><td class="num">6</td><td class="num">21 %</td><td class="num">9,5 €</td><td class="num">15 €</td></tr><tr><td>Septiembre</td><td class="num">492 €</td><td class="num">48</td><td class="num">41</td><td class="num">58</td><td class="num">3</td><td class="num">5 %</td><td class="num">10,3 €</td><td class="num">20 €</td></tr><tr><td>Octubre (1–19)</td><td class="num">245 €</td><td class="num">40</td><td class="num">27</td><td class="num">31</td><td class="num">3</td><td class="num">10 %</td><td class="num">6,1 €</td><td class="num">17 €</td></tr></table></div>
+  <p class="src">Hay asistencias que superan a las agendas del mismo mes porque una llamada puede agendarse un mes y hacerse el siguiente.</p>
+</section>
+
+<section>
+  <h2>Cierre y precio: <em>sin señal clara</em></h2>
+  <div class="bul chart" style="margin-top:34px">
+   <div class="r"><span>547 € · 6 de 15</span><div class="tr"><div class="f" style="width:40%;background:var(--gold)"></div><div class="tg" style="left:27%"><span class="tgl">Media mayo–agosto 27 %</span></div></div><span class="v">40%</span></div>
+   <div class="r"><span>647 € · 24 de 91</span><div class="tr"><div class="f" style="width:26.4%;background:var(--teal)"></div><div class="tg" style="left:27%"></div></div><span class="v">26%</span></div>
+   <div class="r"><span>847 € hasta 13/9 · 7 de 30</span><div class="tr"><div class="f" style="width:23.3%;background:var(--teal)"></div><div class="tg" style="left:27%"></div></div><span class="v">23%</span></div>
+   <div class="r"><span>847 € desde 14/9 · 4 de 78</span><div class="tr"><div class="f" style="width:5.1%;background:var(--red)"></div><div class="tg" style="left:27%"></div></div><span class="v">5%</span></div></div>
+  <div class="cost"><p>Con el mismo precio de 847 € en los dos periodos, el precio no explica esa diferencia, porque es el mismo. Aparte, al subir de 647 a 847 € el cierre fue parecido (26 % y 23 %), pero con 30 asistencias a 847 € no podemos descartar un efecto moderado. Si el cierre de desde el 14/9 fuese del 10–15 %, habría entre 4 y 8 ventas más (unos 3.400–6.800 €); con el 23 % de antes, unas 14. Son órdenes de magnitud, no promesas: el stock antiguo no tiene por qué cerrar como un lead fresco.</p>
+  <div class="row"><div><span class="n">65→123€</span><span class="l">coste por venta (mayo–agosto frente a septiembre–octubre)</span></div><div><span class="n">42%</span><span class="l">del facturado cobrado hasta hoy (casi todo el primer pago)</span></div><div><span class="n">4–8</span><span class="l">ventas más con un cierre del 10–15 % (estimación)</span></div></div></div>
+</section>
+
+<section>
+  <h2>Ventas y <em>comisión del 15%</em></h2>
+  <p class="dek">Cierres del equipo de cierre entre el 14 de septiembre y el 20 de octubre de 2026, sobre el ticket total de cada venta.</p>
+  <div class="tablewrap"><table><tr><th>Closer</th><th>Clienta</th><th>Mes</th><th>Forma de pago</th><th class="num">Ticket total</th><th class="num">15%</th></tr>
+  <tr><td>Charo</td><td>Daniela</td><td>Septiembre</td><td>1 pago</td><td class="num">847€</td><td class="num">127,05€</td></tr>
+  <tr><td>Charo</td><td>Carla</td><td>Septiembre</td><td>3 pagos</td><td class="num">847€</td><td class="num">127,05€</td></tr>
+  <tr><td>Charo</td><td>Carolina</td><td>Octubre</td><td>3 pagos</td><td class="num">847€</td><td class="num">127,05€</td></tr>
+  <tr><td>Charo</td><td>Antonela</td><td>Octubre</td><td>3 pagos</td><td class="num">847€</td><td class="num">127,05€</td></tr>
+  <tr class="total"><td></td><td>Total conjunto</td><td></td><td></td><td class="num">3.388€</td><td class="num">508,20€</td></tr></table></div>
+  <p class="note">La comisión se calcula sobre el ticket completo de 847 €, no sobre lo cobrado hasta hoy: 3 de las 4 ventas son de pago aplazado en 3 cuotas de 282,33 €. Las 4 ventas coinciden con registros del tracker; Ana confirmará qué ventas incluye. El 15 % es el de la propuesta de contrato y queda pendiente de confirmar.</p>
+</section>
+
+<section>
+  <h2>Por qué se <em>pierde</em> un lead</h2>
+  <p class="dek">Las fichas no recogían el motivo de pérdida, así que aquí solo hay lo que sí se pudo medir y lo que se repite en las llamadas.</p>
+  <div class="bars">
+   <div class="brow"><span class="lab">Instagram caduca sin contacto (a 3/10)</span><div class="track"><div class="seg red" style="width:39.0%"></div></div><span class="val">39%</span></div>
+   <div class="brow"><span class="lab">Citas celebradas (33 de 44)</span><div class="track"><div class="seg a" style="width:75.0%"></div></div><span class="val">75%</span></div>
+   <div class="brow"><span class="lab">Citas movidas (4 de 44)</span><div class="track"><div class="seg a" style="width:9.1%"></div></div><span class="val">9%</span></div>
+   <div class="brow"><span class="lab">Citas canceladas (1 de 44)</span><div class="track"><div class="seg a" style="width:2.3%"></div></div><span class="val">2%</span></div>
+  </div>
+  <p class="src">Citas del 14/9 al 9/10: 33 realizadas, 6 pendientes, 4 movidas y 1 cancelada. Instagram: 50 de 128 leads caducan sin contacto humano.</p>
+  <h3>Lo que se repite en las llamadas</h3>
+  <div class="exp">
+   <div class="e"><h4>Duda</h4><b>«Me lo tengo que pensar»</b><p>La más repetida. La duda y la inseguridad pesan tanto como el importe, y el seguimiento de 48 h es el eslabón decisivo.</p></div>
+   <div class="e"><h4>Dinero</h4><b>«Es mucho dinero» o «no tengo»</b><p>Aparece incluso fraccionando. Las 4 llamadas completas que no cierran se caen en el paso de inversión.</p></div>
+   <div class="e"><h4>Expectativa</h4><b>«No quiero pagar para que me busques trabajo»</b><p>Hay leads que esperan una bolsa de empleo. El bot anuncia 400–900 € en lugar de 847 €, y esa diferencia de expectativa se rompe en la llamada.</p></div>
+   <div class="e"><h4>Experiencia</h4><b>«No tengo experiencia, no conozco a nadie»</b><p>Es el bloqueo más común en las fichas y encaja con el mensaje de acompañamiento del programa.</p></div>
+  </div>
+  <p class="note">Con unas 60 llamadas y 4 ventas, estas cifras orientan pero no permiten prometer un porcentaje.</p>
+</section>
+
+<section>
+  <h2>Tendencias <em>que se repiten</em></h2>
+  <div class="trend"><div class="tw hd"><span>Tendencia</span><span>Hasta el 13/9</span><span>Desde el 14/9</span><span>Dirección</span></div>
+  <div class="tw"><b>El cierre</b><span>23 % (7 de 30)</span><span>5 % (4 de 78)</span><span><span class="pill risk">Empeora</span></span></div>
+  <div class="tw"><b>Llamadas por día</b><span>1,1</span><span>2,3</span><span><span class="pill mid">Sube</span></span></div>
+  <div class="tw"><b>Tráfico (CPM)</b><span>10 € en mayo, 15 € en agosto</span><span>20 € en septiembre, 17 € en octubre</span><span><span class="pill risk">Empeora</span></span></div>
+  <div class="tw"><b>Leads nuevos por semana</b><span>Unos 14</span><span>Unos 13</span><span><span class="pill mid">Estable y bajo</span></span></div>
+  <div class="tw"><b>Fichas de llamada</b><span>Sin trazabilidad</span><span>Casi vacías; mejoran desde el 26/10</span><span><span class="pill mid">En corrección</span></span></div>
+  <div class="tw"><b>Fin de semana</b><span>Según tu tracker, casi la mitad de los leads entra de viernes a domingo</span><span>Apenas se agendan llamadas</span><span><span class="pill mid">Se repite</span></span></div>
+  <div class="tw"><b>Precio</b><span>647 € 26 %; 847 € 23 %</span><span>847 € sin efecto visible</span><span><span class="pill mid">No concluyente</span></span></div>
+  </div>
+</section>
+
+<section>
+  <h2>Cuatro lecturas <em>de los mismos datos</em></h2>
+  <p class="dek">Ventas, captación, precio y operaciones, cada una desde su ángulo.</p>
+  <div class="exp">
+   <div class="e"><h4>Ventas high-ticket</h4><b>La conversación hay que medirla con leads frescos</b><p>Mezclar leads frescos y antiguos oculta qué hace la llamada. Propone medir por separado y comparar el cierre de la closer con el tuyo sobre los mismos leads.</p></div>
+   <div class="e"><h4>Captación y funnel</h4><b>El bot agenda sin filtrar</b><p>Propone decir la inversión real (847 € o 3 cuotas) y que no es una bolsa de empleo antes de agendar, confirmar que el lead vio el vídeo y cubrir la ventana de Instagram el mismo día.</p></div>
+   <div class="e"><h4>Finanzas y pricing</h4><b>Mantener 847 € durante el piloto</b><p>Probar 647 € solo si hay al menos 30 llamadas por precio. Ofrecer el recurso económico solo a quien dice que no al precio.</p></div>
+   <div class="e"><h4>Operaciones y datos</h4><b>Una definición de venta y una ficha completa</b><p>Registrar cada venta como «Ganado», cada pérdida con motivo y cada lead con su antigüedad. Resumen semanal cada lunes.</p></div>
+  </div>
+  <div class="verdict" style="margin-top:20px"><span class="tag">Coinciden las cuatro</span><h3>Primero separar leads frescos de antiguos, después alinear el mensaje del bot y por último medir con datos limpios.</h3>
+  <p>Ninguna propone bajar el precio ahora. Las cuatro piden medir antes de decidir y fijar reglas de decisión para el 19 de noviembre.</p></div>
+</section>
+
+<section>
+  <h2>Precio y <em>recurso económico</em></h2>
+  <p class="dek">Cuándo se cambia el precio y cuándo no, con reglas escritas antes de ver los datos.</p>
+  <div class="tablewrap"><table><tr><th>Si el piloto muestra…</th><th>Decisión</th></tr>
+  <tr><td>Con al menos 30 llamadas por grupo: cierre de leads frescos ≥ 20 % y de antiguos &lt; 8 %</td><td>El problema es el stock frío: se prioriza limpiar y separar.</td></tr>
+  <tr><td>Cierre de 647 € claramente superior al de 847 €, con al menos 30 llamadas por precio</td><td>Se estudia adoptar 647 €. Si no hay muestra suficiente, se mantiene 847 €.</td></tr>
+  <tr><td>Más del 50 % de las pérdidas son por precio</td><td>Se activa el recurso económico para quien dice que no, con enlace de pago automático.</td></tr>
+  <tr><td>Impago en las 3 cuotas &gt; 15 % (se mide a las 8 semanas)</td><td>Se sube el pago inicial.</td></tr>
+  <tr><td>Cierre de la closer frente al tuyo con los mismos leads (orientativo, con al menos 20 llamadas cada una)</td><td>Si son parecidos, el problema no es de quién llama. Si el tuyo supera en 15 puntos, se refuerza el guion.</td></tr></table></div>
+  <p class="note">Hasta el 19/11 se mantiene 847 €, con 3 cuotas de 282,33 € o hasta 12 cuotas por Hotmart y reserva de precio.</p>
+</section>
+
+<section>
+  <h2>Proyección <em>a 30 días</em></h2>
+  <p class="dek">Del 22 de octubre al 19 de noviembre. Se parte de unas 52 asistencias (el ritmo de octubre, unas 13 por semana), que dependen del stock y de los leads nuevos, y de 847 € por venta.</p>
+  <div class="bars">
+   <div class="brow"><span class="lab">Pesimista</span><div class="track"><div class="seg red" style="width:30%"></div></div><span class="val">2.541€</span></div>
+   <div class="brow"><span class="lab">Base</span><div class="track"><div class="seg a" style="width:50%"></div></div><span class="val">4.235€</span></div>
+   <div class="brow"><span class="lab">Optimista</span><div class="track"><div class="seg a" style="width:100%"></div></div><span class="val">8.470€</span></div>
+  </div>
+  <div class="tablewrap"><table><tr><th>Escenario</th><th class="num">Asistencias</th><th class="num">Cierre</th><th class="num">Ventas</th><th class="num">Facturación</th></tr>
+  <tr><td>Pesimista</td><td class="num">52</td><td class="num">5%</td><td class="num">3</td><td class="num">2.541€</td></tr>
+  <tr><td>Base</td><td class="num">52</td><td class="num">10%</td><td class="num">5</td><td class="num">4.235€</td></tr>
+  <tr><td>Optimista</td><td class="num">52</td><td class="num">20%</td><td class="num">10</td><td class="num">8.470€</td></tr></table></div>
+  <p class="src">Estimación con supuestos explícitos, no una promesa. El 10 % del escenario base es el cierre de octubre. La facturación es el ticket completo; el cobro entra en 3 cuotas o hasta 12 por Hotmart. Con pocos leads nuevos la asistencia podría bajar.</p>
+</section>
+
+<section>
+  <h2>Riesgos <em>por gravedad</em></h2>
+  <div class="risk"><i>1</i><div><strong>Seguir llamando sobre stock frío sin captación nueva</strong><p>La agenda se vacía y el cierre se queda en ~5 %.</p></div><span class="pill risk">Crítico</span></div>
+  <div class="risk"><i>2</i><div><strong>El bot sigue agendando con precio y expectativa equivocados</strong><p>Los leads llegan a la llamada y se caen en el paso de inversión.</p></div><span class="pill risk">Alto</span></div>
+  <div class="risk"><i>3</i><div><strong>Instagram caduca el 39 % de los leads</strong><p>Sin atención humana el mismo día se pierden antes de hablar.</p></div><span class="pill risk">Alto</span></div>
+  <div class="risk"><i>4</i><div><strong>Fichas sin motivo de pérdida ni antigüedad</strong><p>No se puede separar frescos de antiguos ni medir qué pasa.</p></div><span class="pill risk">Alto</span></div>
+  <div class="risk"><i>5</i><div><strong>Tráfico más caro y pocos leads nuevos</strong><p>CPM de 10 a 20 € y unos 13 leads nuevos por semana.</p></div><span class="pill mid">Medio</span></div>
+  <div class="risk"><i>6</i><div><strong>Cobertura de fin de semana</strong><p>Según tu tracker, casi la mitad de los leads entra de viernes a domingo y apenas se agenda.</p></div><span class="pill mid">Medio</span></div>
+</section>
+
+<section>
+  <h2>Veredicto <em>final</em></h2>
+  <div class="verdict"><span class="tag">Veredicto</span><h3>Seguir con el plan de 4 semanas y decidir el 19/11 con datos limpios.</h3>
+  <p>La oferta vende y no vemos una señal clara de que el precio sea el problema. La caída coincide con nuestra llegada y con el trabajo sobre leads antiguos, y parte de ella es nuestra. Para separar cada causa necesitamos fichas completas, leads frescos y antiguos medidos por separado y un bot que diga la verdad desde el primer mensaje.</p></div>
+</section>
+
+<section>
+  <h2>Plan de <em>acción a 30 días</em></h2>
+  <div class="tl">
+   <div class="s"><h4>Semana 1 · 22–28 oct · Mensaje, CRM y ficha</h4><ul>
+    <li>Acordar el mensaje y el precio del bot, y la hoja de acuerdos (22/10). <strong>Ana y Closer Search.</strong></li>
+    <li>Revisar juntos el CRM: etapas, dueño por lead y etapa «Ganado» (23/10). <strong>Ana y Closer Search.</strong></li>
+    <li>Bot actualizado: 847 € o 3 cuotas de 282,33 € antes de agendar, que no es bolsa de empleo, mensajes cortos y una pregunta por vez (viernes 23/10 por la tarde). <strong>Ana (bot) y Closer Search (guion).</strong></li>
+    <li>Desde el 22/10, ficha completa en cada llamada con motivo de pérdida y antigüedad del lead, y resumen semanal cada lunes. <strong>David (Closer Search).</strong></li></ul></div>
+   <div class="s"><h4>Semana 2 · 29 oct–4 nov · Filtro y cobertura</h4><ul>
+    <li>Pregunta de calificación y condición de «vídeo visto» antes de agendar. <strong>Ana (bot) y Closer Search.</strong></li>
+    <li>Cobertura de fin de semana y atención de Instagram el mismo día. <strong>David (Closer Search).</strong></li>
+    <li>Sacar del pipeline los 50 contactos de nutrición y archivar los leads de marzo a mayo sin actividad. <strong>Ana y Closer Search.</strong></li></ul></div>
+   <div class="s"><h4>Semana 3 · 5–11 nov · Revisión</h4><ul>
+    <li>Revisión de las 2 primeras semanas (5/11): cierre de frescos frente a antiguos y motivos de pérdida. <strong>Ana y Closer Search.</strong></li>
+    <li>Reactivar la captación según lo que digan los datos de Meta por anuncio y semana. <strong>Ana.</strong></li></ul></div>
+   <div class="s"><h4>Semana 4 · 12–19 nov · Medir y decidir</h4><ul>
+    <li>Aplicar las reglas de decisión de la tabla de precio. <strong>Ana y Closer Search.</strong></li>
+    <li>Cierre del piloto y decisión sobre precio, opción de entrada y recurso económico (19/11). <strong>Ana y Closer Search.</strong></li></ul></div>
+  </div>
+  <h3>Cuadro de mando semanal</h3>
+  <div class="tablewrap"><table><tr><th>Indicador</th><th>Definición</th><th>Alarma (propuesta)</th></tr>
+  <tr><td>Cierre de leads frescos</td><td>Ventas entre llamadas de leads de menos de 7 días</td><td>Menos del 20 %</td></tr>
+  <tr><td>Cierre de leads antiguos</td><td>Ventas entre llamadas de leads de 7 días o más</td><td>Menos del 8 %</td></tr>
+  <tr><td>Llamadas con precio dicho antes de agendar</td><td>Citas en las que el lead conocía los 847 €</td><td>Menos del 90 %</td></tr>
+  <tr><td>Seguimiento de 48 h</td><td>Seguimientos hechos a tiempo</td><td>Menos del 95 %</td></tr>
+  <tr><td>Ficha completa</td><td>Llamadas con motivo de pérdida y antigüedad</td><td>Menos del 80 % la 1ª semana y del 95 % desde la 3ª</td></tr>
+  <tr><td>Leads sin dueño</td><td>Leads sin comercial asignado</td><td>Más de 0</td></tr>
+  <tr><td>Leads nuevos por semana</td><td>Entradas desde Meta (hoy unos 13)</td><td>Menos de 13; objetivo 20 o más</td></tr></table></div>
+  <p class="src">Los umbrales son propuestas y se ajustan con los datos de las primeras semanas.</p>
+</section>
+
+<section>
+  <h2>Decisiones <em>y datos que necesitamos</em></h2>
+  <div class="exec">
+   <div><i>1</i><p><strong>Mensaje y precio del bot:</strong> 847 € o 3 cuotas de 282,33 € desde el principio, y dejar claro que FSC es acompañamiento y no una bolsa de empleo.</p></div>
+   <div><i>2</i><p><strong>Mantener 847 € durante el piloto</strong> y medir por separado los leads frescos y los antiguos.</p></div>
+   <div><i>3</i><p><strong>Recurso económico:</strong> ofrecerlo solo a quien dice que no al precio, con enlace de pago automático. Falta confirmar la política de cancelación y devolución.</p></div>
+   <div><i>4</i><p><strong>Tu parte y la nuestra:</strong> acordamos un dueño por lead, el CRM como única fuente de verdad, avisar antes de tocarlo o de escribir a un lead con llamada en curso, y que la guía común prevalezca sobre instrucciones sueltas. Si tú tocas el CRM, lo avisas; si nosotros cambiamos algo, también.</p></div>
+   <div><i>5</i><p><strong>Datos que necesitamos:</strong> el embudo completo del bot, qué ventas incluye tu tracker, el export de Hotmart de mayo a octubre, Meta por anuncio y semana, y si vas a subir presupuesto.</p></div>
+   <div><i>6</i><p><strong>Tu duda de prellamada o setting corto:</strong> no hace falta elegir. Probamos un setting más corto, con una pregunta por vez y el aviso de precio antes de agendar, y lo medimos 14 días. El 25/10 es una fecha para revisar cómo va el plan, no para decidir si seguimos.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>Lo que <em>los datos no dicen</em></h2>
+  <div class="exec">
+   <div><i>1</i><p>Cuánto pesa cada causa: stock frío, arranque del equipo, tráfico o mensaje del bot. Las causas ocurrieron a la vez y solo el piloto puede separarlas.</p></div>
+   <div><i>2</i><p>Qué ventas incluye tu tracker. Hay 4 ventas facturadas sin unidad que no contamos, y no sabemos si las 4 de la closer están dentro.</p></div>
+   <div><i>3</i><p>Qué pasó antes del 17/9 en las llamadas: no hay fichas anteriores a esa fecha.</p></div>
+   <div><i>6</i><p>Cuánto cuesta el 25/10: si decides parar las cuentas, el plan de 4 semanas necesita presupuesto de anuncios para tener leads frescos que medir.</p></div>
+   <div><i>4</i><p>La tasa exacta de cancelación y no-show, que hoy no se registra de forma estructurada.</p></div>
+   <div><i>5</i><p>Las muestras son pequeñas (30 asistencias en el periodo anterior y 78 en el posterior): un cierre más o menos mueve varios puntos. La diferencia entre los dos periodos sí es estadísticamente real (p ≈ 0,005).</p></div>
+  </div>
+  <p class="src">Fuentes: tracker diario de Sequoia Sales, CRM, informe de llamadas del 20/10 y fichas de lead. Contenido elaborado con apoyo de IA (AI Act, art. 50.4).</p>
+</section>
+
+<footer class="closing"><svg viewBox="0 0 100 100" fill="none" aria-hidden="true"><polygon points="50,4 90,26 90,74 50,96 10,74 10,26" stroke="#C9A84C" stroke-width="3" fill="#060606"/><path d="M33 50 L45 62 L69 36" stroke="#C9A84C" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><h2>La oferta funciona. Lo que toca es medir lo que llega a la llamada.</h2><p>Closer Search · Informe preparado en exclusiva para Ana Martín · www.closersearch.com · 21/10/2026</p></footer>
+</div>
+</body></html>
